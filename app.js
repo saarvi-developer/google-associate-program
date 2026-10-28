@@ -1,6 +1,6 @@
 /**
  * GOOGLE ASSOCIATE ENGINEERING FELLOWSHIP - APPLICATION ENGINE
- * Candidate: Siddhant Saini (ID: GOOG-ENG-84092)
+ * Candidate: Sidhant Saini (ID: GOOG-ENG-84092)
  * 100-Day / 1,000-Hour Enterprise Tracker, Valuable Projects Hub & Telemetry System
  */
 
@@ -420,7 +420,7 @@
         if (parsed.days && parsed.days.length === TOTAL_DAYS) {
           appState.days = parsed.days;
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
-          appState.candidateName = 'Siddhant Saini'; // Guarantee correct name
+          appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
           appState.candidateId = 'GOOG-ENG-84092';
           return;
         }
@@ -432,7 +432,7 @@
     // Default Initial Setup
     appState.days = generateInitialDays();
     appState.projects = INITIAL_PROJECTS;
-    appState.candidateName = 'Siddhant Saini';
+    appState.candidateName = 'Sidhant Saini';
     appState.candidateId = 'GOOG-ENG-84092';
     saveState();
   }
@@ -537,10 +537,10 @@
 
     // Candidate Name sync
     const nameDisplay = document.getElementById('candidate-name-display');
-    if (nameDisplay) nameDisplay.textContent = 'Candidate Siddhant Saini';
+    if (nameDisplay) nameDisplay.textContent = 'Candidate Sidhant Saini';
 
     const certName = document.getElementById('cert-candidate-name');
-    if (certName) certName.textContent = 'SIDDHANT SAINI';
+    if (certName) certName.textContent = 'SIDHANT SAINI';
 
     // Hero KPI Cards
     const completedEl = document.getElementById('kpi-completed-hours');
@@ -873,7 +873,7 @@
       appState.days[dayIndex].hours = DAILY_TARGET_HOURS;
       appState.days[dayIndex].completed = true;
       playSuccessTone();
-      showToast(`Day ${dayNum}: Full 10 Hours logged successfully for Siddhant Saini!`, 'success');
+      showToast(`Day ${dayNum}: Full 10 Hours logged successfully for Sidhant Saini!`, 'success');
     }
 
     saveState();
@@ -1091,7 +1091,7 @@
     const body = document.getElementById('modal-proj-body');
 
     title.textContent = proj.title;
-    meta.textContent = `${proj.code} &bull; ${proj.valuation} &bull; Architect: Siddhant Saini`;
+    meta.textContent = `${proj.code} &bull; ${proj.valuation} &bull; Architect: Sidhant Saini`;
 
     let specHtml = `
       <div class="proj-spec-section">
@@ -1390,7 +1390,7 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
       updateTelemetryUI();
       renderDaysList();
 
-      showToast(`Committed +${added} hrs to Day ${nextDay.day} for Siddhant Saini.`, 'success');
+      showToast(`Committed +${added} hrs to Day ${nextDay.day} for Sidhant Saini.`, 'success');
 
       clearInterval(appState.timerIntervalId);
       appState.timerRunning = false;
@@ -1425,7 +1425,7 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `google_associate_ledger_siddhant_saini_${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `google_associate_ledger_sidhant_saini_${new Date().toISOString().split('T')[0]}.json`;
         a.click();
         URL.revokeObjectURL(url);
         showToast('Hours Ledger & Projects successfully exported as JSON.', 'success');
@@ -1444,7 +1444,7 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
             if (parsed.days && Array.isArray(parsed.days) && parsed.days.length === TOTAL_DAYS) {
               appState.days = parsed.days;
               if (parsed.projects) appState.projects = parsed.projects;
-              appState.candidateName = 'Siddhant Saini';
+              appState.candidateName = 'Sidhant Saini';
               saveState();
               updateTelemetryUI();
               renderDaysList();
@@ -1674,7 +1674,7 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
     updateTelemetryUI();
     renderDaysList();
 
-    console.log('Google Associate Engineering Fellowship Portal initialized for Siddhant Saini.');
+    console.log('Google Associate Engineering Fellowship Portal initialized for Sidhant Saini.');
   }
 
   // Run on DOM ready
