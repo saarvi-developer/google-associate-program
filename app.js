@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v3';
+  const STORAGE_KEY = 'gap_fellowship_v4';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -379,7 +379,7 @@
         d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
       };
 
-      // Day 1 (Oct 29, 2026): 10 hours completed
+      // Day 1 (Oct 29, 2026): 14 hours completed
       const isDay1 = (dayNumber === 1);
       days.push({
         day: dayNumber,
@@ -388,9 +388,9 @@
         phase: phaseNumber,
         title: topicObj.t,
         deliverables: topicObj.d,
-        hours: isDay1 ? 10.0 : 0.0,
+        hours: isDay1 ? 14.0 : 0.0,
         completed: isDay1 ? true : false,
-        notes: isDay1 ? 'Day 1 completed — 10 hrs logged.' : ''
+        notes: isDay1 ? 'Day 1 completed — 14 hrs logged.' : ''
       });
     }
 
@@ -418,19 +418,17 @@
     try {
       let saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) {
-        saved = localStorage.getItem('gap_fellowship_v2');
+        saved = localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
       }
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.days && parsed.days.length === TOTAL_DAYS) {
           appState.days = parsed.days;
-          // Ensure Day 1 reflects the 10 completed hours on Oct 29, 2026
-          if (appState.days[0] && (parseFloat(appState.days[0].hours) < 10 || !appState.days[0].completed)) {
-            appState.days[0].hours = 10.0;
+          // Ensure Day 1 reflects the 14 completed hours on Oct 29, 2026
+          if (appState.days[0] && (parseFloat(appState.days[0].hours) < 14 || !appState.days[0].completed)) {
+            appState.days[0].hours = 14.0;
             appState.days[0].completed = true;
-            if (!appState.days[0].notes) {
-              appState.days[0].notes = 'Day 1 completed — 10 hrs logged.';
-            }
+            appState.days[0].notes = 'Day 1 completed — 14 hrs logged.';
           }
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
