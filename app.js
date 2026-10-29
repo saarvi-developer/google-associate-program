@@ -379,6 +379,8 @@
         d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
       };
 
+      // Day 1 (Oct 29, 2026): 10 hours completed
+      const isDay1 = (dayNumber === 1);
       days.push({
         day: dayNumber,
         date: current.toISOString().split('T')[0],
@@ -386,9 +388,9 @@
         phase: phaseNumber,
         title: topicObj.t,
         deliverables: topicObj.d,
-        hours: 0.0,
-        completed: false,
-        notes: ''
+        hours: isDay1 ? 10.0 : 0.0,
+        completed: isDay1 ? true : false,
+        notes: isDay1 ? 'Day 1 completed — 10 hrs logged.' : ''
       });
     }
 
