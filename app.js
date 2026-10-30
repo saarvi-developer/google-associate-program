@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v5';
+  const STORAGE_KEY = 'gap_fellowship_v6';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -379,7 +379,7 @@
         d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
       };
 
-      // Day 1 (Oct 29, 2026): 14 hours completed; Day 2 (Oct 30, 2026): 7 hours completed
+      // Day 1 (Oct 29, 2026): 14 hours completed; Day 2 (Oct 30, 2026): 12.5 hours completed
       const isDay1 = (dayNumber === 1);
       const isDay2 = (dayNumber === 2);
       days.push({
@@ -389,9 +389,9 @@
         phase: phaseNumber,
         title: topicObj.t,
         deliverables: topicObj.d,
-        hours: isDay1 ? 14.0 : (isDay2 ? 7.0 : 0.0),
-        completed: isDay1 ? true : false,
-        notes: isDay1 ? 'Day 1 completed — 14 hrs logged.' : (isDay2 ? 'Day 2 completed — 7 hrs logged.' : '')
+        hours: isDay1 ? 14.0 : (isDay2 ? 12.5 : 0.0),
+        completed: (isDay1 || isDay2) ? true : false,
+        notes: isDay1 ? 'Day 1 completed — 14 hrs logged.' : (isDay2 ? 'Day 2 completed — 12.5 hrs logged.' : '')
       });
     }
 
@@ -419,7 +419,7 @@
     try {
       let saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) {
-        saved = localStorage.getItem('gap_fellowship_v4') || localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
+        saved = localStorage.getItem('gap_fellowship_v5') || localStorage.getItem('gap_fellowship_v4') || localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
       }
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -431,12 +431,11 @@
             appState.days[0].completed = true;
             appState.days[0].notes = 'Day 1 completed — 14 hrs logged.';
           }
-          // Ensure Day 2 reflects the 7 completed hours on Oct 30, 2026
-          if (appState.days[1] && parseFloat(appState.days[1].hours) < 7) {
-            appState.days[1].hours = 7.0;
-            if (!appState.days[1].notes) {
-              appState.days[1].notes = 'Day 2 completed — 7 hrs logged.';
-            }
+          // Ensure Day 2 reflects the 12.5 completed hours on Oct 30, 2026
+          if (appState.days[1]) {
+            appState.days[1].hours = 12.5;
+            appState.days[1].completed = true;
+            appState.days[1].notes = 'Day 2 completed — 12.5 hrs logged.';
           }
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
