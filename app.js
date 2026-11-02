@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v6';
+  const STORAGE_KEY = 'gap_fellowship_v7';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -379,9 +379,25 @@
         d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
       };
 
-      // Day 1 (Oct 29, 2026): 14 hours completed; Day 2 (Oct 30, 2026): 12.5 hours completed
-      const isDay1 = (dayNumber === 1);
-      const isDay2 = (dayNumber === 2);
+      // Verified Completed Sprint Logs:
+      // Day 1 (Oct 29, 2026): 14.0 hrs
+      // Day 2 (Oct 30, 2026): 12.5 hrs
+      // Day 3 (Oct 31, 2026): 12.0 hrs
+      // Day 4 (Nov 01, 2026): 12.5 hrs
+      // Day 5 (Nov 02, 2026): 13.0 hrs
+      const loggedHoursMap = {
+        1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
+        2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
+        3: { hours: 12.0, notes: 'Day 3 completed — 12 hrs logged.' },
+        4: { hours: 12.5, notes: 'Day 4 completed — 12.5 hrs logged.' },
+        5: { hours: 13.0, notes: 'Day 5 completed — 13 hrs logged.' }
+      };
+
+      const logRecord = loggedHoursMap[dayNumber];
+      const dayHours = logRecord ? logRecord.hours : 0.0;
+      const isCompleted = dayHours >= DAILY_TARGET_HOURS;
+      const dayNotes = logRecord ? logRecord.notes : '';
+
       days.push({
         day: dayNumber,
         date: current.toISOString().split('T')[0],
@@ -389,9 +405,9 @@
         phase: phaseNumber,
         title: topicObj.t,
         deliverables: topicObj.d,
-        hours: isDay1 ? 14.0 : (isDay2 ? 12.5 : 0.0),
-        completed: (isDay1 || isDay2) ? true : false,
-        notes: isDay1 ? 'Day 1 completed — 14 hrs logged.' : (isDay2 ? 'Day 2 completed — 12.5 hrs logged.' : '')
+        hours: dayHours,
+        completed: isCompleted,
+        notes: dayNotes
       });
     }
 
@@ -419,24 +435,27 @@
     try {
       let saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) {
-        saved = localStorage.getItem('gap_fellowship_v5') || localStorage.getItem('gap_fellowship_v4') || localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
+        saved = localStorage.getItem('gap_fellowship_v6') || localStorage.getItem('gap_fellowship_v5') || localStorage.getItem('gap_fellowship_v4') || localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
       }
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.days && parsed.days.length === TOTAL_DAYS) {
           appState.days = parsed.days;
-          // Ensure Day 1 reflects the 14 completed hours on Oct 29, 2026
-          if (appState.days[0] && (parseFloat(appState.days[0].hours) < 14 || !appState.days[0].completed)) {
-            appState.days[0].hours = 14.0;
-            appState.days[0].completed = true;
-            appState.days[0].notes = 'Day 1 completed — 14 hrs logged.';
-          }
-          // Ensure Day 2 reflects the 12.5 completed hours on Oct 30, 2026
-          if (appState.days[1]) {
-            appState.days[1].hours = 12.5;
-            appState.days[1].completed = true;
-            appState.days[1].notes = 'Day 2 completed — 12.5 hrs logged.';
-          }
+          // Ensure Days 1-5 reflect completed logs
+          const defaultLogs = [
+            { dayIdx: 0, hours: 14.0, note: 'Day 1 completed — 14 hrs logged.' },
+            { dayIdx: 1, hours: 12.5, note: 'Day 2 completed — 12.5 hrs logged.' },
+            { dayIdx: 2, hours: 12.0, note: 'Day 3 completed — 12 hrs logged.' },
+            { dayIdx: 3, hours: 12.5, note: 'Day 4 completed — 12.5 hrs logged.' },
+            { dayIdx: 4, hours: 13.0, note: 'Day 5 completed — 13 hrs logged.' }
+          ];
+          defaultLogs.forEach(entry => {
+            if (appState.days[entry.dayIdx]) {
+              appState.days[entry.dayIdx].hours = entry.hours;
+              appState.days[entry.dayIdx].completed = true;
+              appState.days[entry.dayIdx].notes = entry.note;
+            }
+          });
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
           appState.candidateId = 'GOOG-ENG-84092';
