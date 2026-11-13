@@ -2474,3 +2474,285 @@ body {
   overflow-x: auto;
 }
 
+/* ==========================================================================
+   OFFICIAL RECESS & VACATION SCHEDULE STYLES
+   ========================================================================== */
+
+.badge-vacation {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: var(--accent-gold) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.vacation-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.vsg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vsg-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-medium);
+}
+
+.vsg-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.vsg-val {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.vsg-sub {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.vacations-table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.vtw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.vtw-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.vtw-table-container {
+  overflow-x: auto;
+}
+
+.vacations-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.vacations-table th {
+  padding: 0.875rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.vacations-table td {
+  padding: 1.125rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+
+.vacations-table tr:last-child td {
+  border-bottom: none;
+}
+
+.vacations-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.recess-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.recess-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.recess-name-cell strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.recess-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.date-code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #79B8FF;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.day-count-badge {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+}
+
+.vcategory-pill {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.cat-festival {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.cat-holiday {
+  background: rgba(66, 133, 244, 0.15);
+  color: var(--g-blue);
+  border: 1px solid rgba(66, 133, 244, 0.3);
+}
+
+.cat-national {
+  background: rgba(52, 168, 83, 0.15);
+  color: var(--g-green);
+  border: 1px solid rgba(52, 168, 83, 0.3);
+}
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  white-space: nowrap;
+}
+
+.status-observed {
+  background: rgba(52, 168, 83, 0.15);
+  color: var(--g-green);
+  border: 1px solid rgba(52, 168, 83, 0.35);
+}
+
+.status-upcoming {
+  background: rgba(66, 133, 244, 0.15);
+  color: #79B8FF;
+  border: 1px solid rgba(66, 133, 244, 0.35);
+}
+
+.recess-notes-card {
+  display: flex;
+  gap: 1.25rem;
+  background: rgba(52, 168, 83, 0.06);
+  border: 1px solid rgba(52, 168, 83, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  align-items: flex-start;
+}
+
+.rnc-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(52, 168, 83, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rnc-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.375rem;
+}
+
+.rnc-content p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.tracker-vacation-callout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(20, 28, 48, 0.8));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tvc-left {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.tvc-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.tvc-left strong {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--accent-gold);
+}
+
+.tvc-desc {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+}
+

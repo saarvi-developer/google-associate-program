@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261102_day5">
+  <link rel="stylesheet" href="styles.css?v=20261113_vacations">
 </head>
 
 <body>
@@ -42,7 +42,11 @@
         <button class="nav-link active" data-target="dashboard-section" id="nav-dashboard">Overview</button>
         <button class="nav-link" data-target="tracker-section" id="nav-tracker">
           100-Day Tracker
-          <span class="nav-badge" id="nav-progress-badge">6.4%</span>
+          <span class="nav-badge" id="nav-progress-badge">10.4%</span>
+        </button>
+        <button class="nav-link" data-target="vacations-section" id="nav-vacations">
+          Vacation Schedule
+          <span class="nav-badge badge-vacation" id="nav-vacation-badge">10 Days Break</span>
         </button>
         <button class="nav-link" data-target="projects-section" id="nav-projects">
           Valuable Projects
@@ -78,7 +82,7 @@
         <div class="hero-chips">
           <span class="chip chip-blue"><i class="chip-dot"></i> Official Residency Track</span>
           <span class="chip chip-green"><i class="chip-dot"></i> 1,000 Active Hours Commitment</span>
-          <span class="chip chip-amber"><i class="chip-dot"></i> Oct 29, 2026 &mdash; Feb 5, 2027</span>
+          <span class="chip chip-amber"><i class="chip-dot"></i> Oct 29, 2026 &mdash; Feb 15, 2027 (10 Vacations Excluded)</span>
         </div>
         <h1 class="hero-heading">Google Associate Engineering Fellowship</h1>
         <p class="hero-subtext">
@@ -97,14 +101,14 @@
 
           <div class="kpi-card">
             <div class="kpi-label">COMPLETED HOURS</div>
-            <div class="kpi-value text-green" id="kpi-completed-hours">64.0 <span class="kpi-unit">HRS</span></div>
-            <div class="kpi-sub" id="kpi-completion-rate">6.4% of target completed</div>
+            <div class="kpi-value text-green" id="kpi-completed-hours">104.0 <span class="kpi-unit">HRS</span></div>
+            <div class="kpi-sub" id="kpi-completion-rate">10.4% of target completed</div>
           </div>
 
           <div class="kpi-card">
             <div class="kpi-label">REMAINING HOURS</div>
-            <div class="kpi-value text-amber" id="kpi-remaining-hours">936.0 <span class="kpi-unit">HRS</span></div>
-            <div class="kpi-sub" id="kpi-remaining-days">95 Days remaining</div>
+            <div class="kpi-value text-amber" id="kpi-remaining-hours">896.0 <span class="kpi-unit">HRS</span></div>
+            <div class="kpi-sub" id="kpi-remaining-days">91 Days remaining</div>
           </div>
 
           <div class="kpi-card">
@@ -125,12 +129,12 @@
         <div class="master-progress-wrapper">
           <div class="progress-info-row">
             <span class="progress-title">Overall Fellowship Progress: <strong
-                id="progress-percentage-label">6.4%</strong></span>
-            <span class="progress-details"><span id="days-completed-count">5</span> / 100 Days Logged &bull; Concluding
-              Feb 05, 2027</span>
+                id="progress-percentage-label">10.4%</strong></span>
+            <span class="progress-details"><span id="days-completed-count">9</span> / 100 Days Logged &bull; Concluding
+              Feb 15, 2027</span>
           </div>
           <div class="progress-track">
-            <div class="progress-bar-fill" id="master-progress-fill" style="width: 6.4%;"></div>
+            <div class="progress-bar-fill" id="master-progress-fill" style="width: 10.4%;"></div>
           </div>
         </div>
       </div>
@@ -236,11 +240,11 @@
             </div>
             <div class="vel-row">
               <span class="vel-title">Pace Required for 1,000h</span>
-              <span class="vel-value text-green" id="vel-required-pace">9.9 hrs / day</span>
+              <span class="vel-value text-green" id="vel-required-pace">9.8 hrs / day</span>
             </div>
             <div class="vel-row">
               <span class="vel-title">Program Window</span>
-              <span class="vel-value">Oct 29, 2026 &mdash; Feb 05, 2027</span>
+              <span class="vel-value">Oct 29, 2026 &mdash; Feb 15, 2027</span>
             </div>
             <div class="vel-row">
               <span class="vel-title">Total Fellowship Days</span>
@@ -280,7 +284,7 @@
           <div class="page-breadcrumb">Google Associate Program / Executive Hours Ledger</div>
           <h2 class="section-title">100-Day Executive Checklist & Hours Ledger</h2>
           <p class="section-desc">Record, audit, and track active engineering hours for all 100 days (Day 1: Oct 29,
-            2026 &rarr; Day 100: Feb 5, 2027).</p>
+            2026 &rarr; Day 100: Feb 15, 2027 &bull; 10 Vacation Days Excluded).</p>
         </div>
         <div class="section-actions">
           <button class="btn btn-primary" id="btn-reset-filters">
@@ -306,6 +310,18 @@
         </div>
       </div>
 
+      <!-- Vacation Notice Callout Banner in Tracker -->
+      <div class="tracker-vacation-callout">
+        <div class="tvc-left">
+          <span class="tvc-icon">🏖️</span>
+          <div>
+            <strong>10 Scheduled Vacation Days Excluded from Sprint List</strong>
+            <span class="tvc-desc">Diwali (Nov 6–11), Christmas (Dec 25), New Year (Jan 1), Pongal (Jan 14), Republic Day (Jan 26) are moved to the dedicated Recess Ledger. Days 1–100 remain consecutive working sprints concluding Feb 15, 2027.</span>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline" id="btn-view-vacation-schedule">View Vacation Schedule &rarr;</button>
+      </div>
+
       <!-- Quick Phase Selector Tabs -->
       <div class="phase-quick-bar">
         <button class="phase-pill active" data-phase="all">All 100 Days (Days 1–100)</button>
@@ -325,29 +341,29 @@
       <div class="tracker-status-strip">
         <div class="strip-stat">
           <span class="ss-label">TOTAL LOGGED</span>
-          <span class="ss-value text-green"><span id="tracker-stat-logged">64.0</span> / 1,000 hrs</span>
+          <span class="ss-value text-green"><span id="tracker-stat-logged">104.0</span> / 1,000 hrs</span>
         </div>
         <div class="strip-divider"></div>
         <div class="strip-stat">
           <span class="ss-label">REMAINING HOURS</span>
-          <span class="ss-value text-amber"><span id="tracker-stat-remaining">936.0</span> hrs</span>
+          <span class="ss-value text-amber"><span id="tracker-stat-remaining">896.0</span> hrs</span>
         </div>
         <div class="strip-divider"></div>
         <div class="strip-stat">
           <span class="ss-label">DAYS LOGGED (&#8805;10H)</span>
-          <span class="ss-value text-blue"><span id="tracker-stat-days">5</span> / 100 Days</span>
+          <span class="ss-value text-blue"><span id="tracker-stat-days">9</span> / 100 Days</span>
         </div>
         <div class="strip-divider"></div>
         <div class="strip-stat">
           <span class="ss-label">CURRENT COMPLETION</span>
-          <span class="ss-value text-purple"><span id="tracker-stat-percent">6.4</span>%</span>
+          <span class="ss-value text-purple"><span id="tracker-stat-percent">10.4</span>%</span>
         </div>
       </div>
 
       <!-- Filter Feedback & Clear Row -->
       <div class="filter-feedback-row" id="filter-feedback-row">
         <div class="ff-text" id="filter-status-summary">Showing All 100 Days &bull; 1,000 Hours Quota (Oct 29, 2026
-          &ndash; Feb 05, 2027)</div>
+          &ndash; Feb 15, 2027 &bull; 10 Vacations Excluded)</div>
         <button class="btn btn-sm btn-outline" id="btn-clear-active-filter" style="display: none;">Clear Filter</button>
       </div>
 
@@ -390,6 +406,174 @@
       <!-- 100 Days Container (Rendered completely 1 to 100) -->
       <div class="days-list-container" id="days-list-container">
         <!-- Rendered dynamically via JavaScript: 100 rich day cards -->
+      </div>
+    </section>
+
+    <!-- SECTION: SCHEDULED RECESSES & VACATION CALENDAR -->
+    <section class="portal-section" id="vacations-section">
+      <div class="section-header-block">
+        <div>
+          <div class="page-breadcrumb">Google Associate Program / Official Recess Schedule</div>
+          <h2 class="section-title">Official Scheduled Recesses & Vacation Windows</h2>
+          <p class="section-desc">
+            To guarantee peak cognitive performance, sustainable pacing, and full respect for major national and cultural festivals,
+            the following 10 calendar days are officially designated as non-working fellowship recesses.
+            They are excluded from the 100-Day / 1,000-Hour sprint ledger, extending the program conclusion from Feb 05 to Feb 15, 2027 with zero quota deficit.
+          </p>
+        </div>
+        <div class="section-actions">
+          <button class="btn btn-primary" id="btn-jump-to-tracker">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            Go to 100-Day Tracker
+          </button>
+        </div>
+      </div>
+
+      <!-- Recess Summary Metrics Strip -->
+      <div class="vacation-summary-grid">
+        <div class="vsg-card">
+          <span class="vsg-label">TOTAL SCHEDULED RECESS</span>
+          <span class="vsg-val text-gold">10 Calendar Days</span>
+          <span class="vsg-sub">5 Official Break Windows</span>
+        </div>
+        <div class="vsg-card">
+          <span class="vsg-label">REVISED CONCLUSION DATE</span>
+          <span class="vsg-val text-green">February 15, 2027</span>
+          <span class="vsg-sub">Extended from Feb 05 (100 Working Days Intact)</span>
+        </div>
+        <div class="vsg-card">
+          <span class="vsg-label">OBSERVED / COMPLETED BREAKS</span>
+          <span class="vsg-val text-blue">6 Days (Diwali Break)</span>
+          <span class="vsg-sub">6–11 November 2026 &bull; Concluded</span>
+        </div>
+        <div class="vsg-card">
+          <span class="vsg-label">UPCOMING RECESSES</span>
+          <span class="vsg-val text-purple">4 Calendar Days</span>
+          <span class="vsg-sub">Christmas, New Year, Pongal, Republic Day</span>
+        </div>
+      </div>
+
+      <!-- Recess Table & Detailed Breakdown -->
+      <div class="vacations-table-wrapper">
+        <div class="vtw-header">
+          <h3 class="vtw-title">Official Fellowship Recess Ledger</h3>
+          <span class="chip chip-green">100% Policy Compliant</span>
+        </div>
+        <div class="vtw-table-container">
+          <table class="vacations-table">
+            <thead>
+              <tr>
+                <th>Occasion</th>
+                <th>Calendar Dates</th>
+                <th>Duration</th>
+                <th>Category</th>
+                <th>Sprint Placement</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="recess-row completed-recess">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">🪔</span>
+                    <div>
+                      <strong>Diwali vacation (company break)</strong>
+                      <span class="recess-sub">Annual corporate festival recess</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code">6–11 November 2026</code></td>
+                <td><span class="day-count-badge">6 Days</span></td>
+                <td><span class="vcategory-pill cat-festival">Company Break</span></td>
+                <td>Between Day 8 (Nov 5) &amp; Day 9 (Nov 12)</td>
+                <td><span class="status-pill status-observed">Observed / Completed</span></td>
+              </tr>
+              <tr class="recess-row">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">🎄</span>
+                    <div>
+                      <strong>Christmas</strong>
+                      <span class="recess-sub">Global holiday break</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code">25 December 2026</code></td>
+                <td><span class="day-count-badge">1 Day</span></td>
+                <td><span class="vcategory-pill cat-holiday">Public Holiday</span></td>
+                <td>Inside Phase 6 (Between Day 51 &amp; Day 52)</td>
+                <td><span class="status-pill status-upcoming">Upcoming</span></td>
+              </tr>
+              <tr class="recess-row">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">🎆</span>
+                    <div>
+                      <strong>New Year</strong>
+                      <span class="recess-sub">New Year's Day recharge</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code">1 January 2027</code></td>
+                <td><span class="day-count-badge">1 Day</span></td>
+                <td><span class="vcategory-pill cat-holiday">Public Holiday</span></td>
+                <td>Inside Phase 6 (Between Day 57 &amp; Day 58)</td>
+                <td><span class="status-pill status-upcoming">Upcoming</span></td>
+              </tr>
+              <tr class="recess-row">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">🪁</span>
+                    <div>
+                      <strong>Makar Sankranti / Pongal</strong>
+                      <span class="recess-sub">Harvest festival celebration</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code">14 January 2027</code></td>
+                <td><span class="day-count-badge">1 Day</span></td>
+                <td><span class="vcategory-pill cat-festival">Festival Break</span></td>
+                <td>Inside Phase 7 (Between Day 69 &amp; Day 70)</td>
+                <td><span class="status-pill status-upcoming">Upcoming</span></td>
+              </tr>
+              <tr class="recess-row">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">🇮🇳</span>
+                    <div>
+                      <strong>Republic Day</strong>
+                      <span class="recess-sub">National holiday</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code">26 January 2027</code></td>
+                <td><span class="day-count-badge">1 Day</span></td>
+                <td><span class="vcategory-pill cat-national">National Holiday</span></td>
+                <td>Between Phase 8 (Day 80) &amp; Phase 9 (Day 81)</td>
+                <td><span class="status-pill status-upcoming">Upcoming</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recess Governance & Impact Card -->
+      <div class="recess-notes-card">
+        <div class="rnc-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="#34A853">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+        <div class="rnc-content">
+          <h4>How Vacation Days Are Managed in the 100-Day Curriculum</h4>
+          <p>
+            Vacation days are <strong>completely excluded</strong> from the sequential 100-Day Executive Hours Ledger.
+            This ensures that your 1,000 active engineering hours quota remains pure: exactly 100 dedicated 10-hour working sprint blocks.
+            The calendar automatically extends from February 05, 2027 to February 15, 2027 to accommodate all 10 vacation days seamlessly.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -770,7 +954,7 @@
             </div>
             <div class="cm-cell">
               <span class="cm-label">TARGET CONCLUSION</span>
-              <span class="cm-val">February 05, 2027</span>
+              <span class="cm-val">February 15, 2027</span>
             </div>
             <div class="cm-cell">
               <span class="cm-label">TARGET HOURS</span>
@@ -778,15 +962,15 @@
             </div>
             <div class="cm-cell">
               <span class="cm-label">HOURS COMPLETED</span>
-              <span class="cm-val text-green" id="cert-logged-hours">64.0 Hours</span>
+              <span class="cm-val text-green" id="cert-logged-hours">104.0 Hours</span>
             </div>
             <div class="cm-cell">
               <span class="cm-label">HOURS REMAINING</span>
-              <span class="cm-val text-amber" id="cert-remaining-hours">936.0 Hours</span>
+              <span class="cm-val text-amber" id="cert-remaining-hours">896.0 Hours</span>
             </div>
             <div class="cm-cell">
               <span class="cm-label">COMPLETION QUOTA</span>
-              <span class="cm-val text-blue" id="cert-percentage">6.4%</span>
+              <span class="cm-val text-blue" id="cert-percentage">10.4%</span>
             </div>
           </div>
 
@@ -946,7 +1130,7 @@
   <!-- Notification Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <script src="app.js?v=20261102_day5"></script>
+  <script src="app.js?v=20261113_vacations"></script>
 </body>
 
 </html>

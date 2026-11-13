@@ -8,19 +8,76 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v7';
+  const STORAGE_KEY = 'gap_fellowship_v8';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
   const START_DATE_STR = '2026-10-29'; // Day 1: Oct 29, 2026
 
-  // Phase Definitions
+  // Scheduled Recess & Vacation Calendar (10 Calendar Days Excluded from Sprint Quota)
+  const VACATION_DATES = new Set([
+    '2026-11-06', '2026-11-07', '2026-11-08', '2026-11-09', '2026-11-10', '2026-11-11', // Diwali Break (6 days)
+    '2026-12-25', // Christmas (1 day)
+    '2027-01-01', // New Year (1 day)
+    '2027-01-14', // Makar Sankranti / Pongal (1 day)
+    '2027-01-26'  // Republic Day (1 day)
+  ]);
+
+  const VACATION_SCHEDULE = [
+    {
+      occasion: 'Diwali vacation (company break)',
+      datesText: '6–11 November 2026',
+      startDate: '2026-11-06',
+      endDate: '2026-11-11',
+      daysCount: 6,
+      category: 'Company Break',
+      desc: 'Annual corporate festival break and recharge interval. Excluded from 100-day engineering sprint quota.'
+    },
+    {
+      occasion: 'Christmas',
+      datesText: '25 December 2026',
+      startDate: '2026-12-25',
+      endDate: '2026-12-25',
+      daysCount: 1,
+      category: 'Public Holiday',
+      desc: 'Christmas holiday break.'
+    },
+    {
+      occasion: 'New Year',
+      datesText: '1 January 2027',
+      startDate: '2027-01-01',
+      endDate: '2027-01-01',
+      daysCount: 1,
+      category: 'Public Holiday',
+      desc: 'New Year day break.'
+    },
+    {
+      occasion: 'Makar Sankranti / Pongal',
+      datesText: '14 January 2027',
+      startDate: '2027-01-14',
+      endDate: '2027-01-14',
+      daysCount: 1,
+      category: 'Festival Break',
+      desc: 'Harvest festival and regional holiday.'
+    },
+    {
+      occasion: 'Republic Day',
+      datesText: '26 January 2027',
+      startDate: '2027-01-26',
+      endDate: '2027-01-26',
+      daysCount: 1,
+      category: 'National Holiday',
+      desc: 'National Republic Day holiday.'
+    }
+  ];
+
+  // Phase Definitions (Dates dynamically reflect the 10-day vacation calendar extension)
   const PHASES_METADATA = [
     {
       phase: 1,
       title: 'Advanced Kotlin Coroutines, Flow & Systems',
       days: 'Days 1 &ndash; 10',
-      dates: 'Oct 29 &ndash; Nov 07, 2026',
+      dates: 'Oct 29 &ndash; Nov 13, 2026',
       badge: 'PHASE 01: CORE ARCHITECTURE',
       desc: 'Mastery of Kotlin 2.x concurrency, structured concurrency, cold vs hot Flow pipelines, and low-level ART runtime memory profiling.'
     },
@@ -28,7 +85,7 @@
       phase: 2,
       title: 'Jetpack Compose & Material Design 3',
       days: 'Days 11 &ndash; 20',
-      dates: 'Nov 08 &ndash; Nov 17, 2026',
+      dates: 'Nov 14 &ndash; Nov 23, 2026',
       badge: 'PHASE 02: UI SYSTEMS',
       desc: 'Declarative UI architecture, subcomposition, custom hardware-accelerated Canvas, gesture engines, and 120Hz frame stability.'
     },
@@ -36,7 +93,7 @@
       phase: 3,
       title: 'Clean Multi-Module Architecture & Room',
       days: 'Days 21 &ndash; 30',
-      dates: 'Nov 18 &ndash; Nov 27, 2026',
+      dates: 'Nov 24 &ndash; Dec 03, 2026',
       badge: 'PHASE 03: PERSISTENCE & DATA',
       desc: 'Modular enterprise architecture (Domain/Data/Feature), Hilt DI at scale, Room 2.6+ auto-migrations, and resilient offline-first sync.'
     },
@@ -44,7 +101,7 @@
       phase: 4,
       title: 'Google AdMob & In-App Monetization Suite',
       days: 'Days 31 &ndash; 40',
-      dates: 'Nov 28 &ndash; Dec 07, 2026',
+      dates: 'Dec 04 &ndash; Dec 13, 2026',
       badge: 'PHASE 04: COMMERCIAL MONETIZATION',
       desc: 'Google Mobile Ads (GMA) SDK v23+, Adaptive Banners, Rewarded SSV, Real-Time Bidding (RTB), and UMP consent compliance.'
     },
@@ -52,7 +109,7 @@
       phase: 5,
       title: 'Google Ads (UAC) Growth & Acquisition',
       days: 'Days 41 &ndash; 50',
-      dates: 'Dec 08 &ndash; Dec 17, 2026',
+      dates: 'Dec 14 &ndash; Dec 23, 2026',
       badge: 'PHASE 05: USER ACQUISITION & GROWTH',
       desc: 'Universal App Campaigns (tCPI & tCPA), tROAS value-based bidding, Play Install Referrer, Android App Links, and LTV/CAC optimization.'
     },
@@ -60,7 +117,7 @@
       phase: 6,
       title: 'Android Runtime, Performance & Profiling',
       days: 'Days 51 &ndash; 60',
-      dates: 'Dec 18 &ndash; Dec 27, 2026',
+      dates: 'Dec 24, 2026 &ndash; Jan 04, 2027',
       badge: 'PHASE 06: PERFORMANCE & NDK',
       desc: 'Systrace, Perfetto, Baseline Profiles, cold startup reduction (<500ms), LeakCanary memory leak elimination, and Android NDK/JNI.'
     },
@@ -68,7 +125,7 @@
       phase: 7,
       title: 'Firebase, Cloud Microservices & Analytics',
       days: 'Days 61 &ndash; 70',
-      dates: 'Dec 28, 2026 &ndash; Jan 06, 2027',
+      dates: 'Jan 05 &ndash; Jan 15, 2027',
       badge: 'PHASE 07: CLOUD & TELEMETRY',
       desc: 'FCM push infrastructure, Remote Config server-side A/B tests, Crashlytics velocity triggers, BigQuery raw event analytics.'
     },
@@ -76,7 +133,7 @@
       phase: 8,
       title: 'Google Play Console, Android Vitals & ASO',
       days: 'Days 71 &ndash; 80',
-      dates: 'Jan 07 &ndash; Jan 16, 2027',
+      dates: 'Jan 16 &ndash; Jan 25, 2027',
       badge: 'PHASE 08: PLAY STORE ECOSYSTEM',
       desc: 'Android Vitals excellence (crash rate <0.1%, ANR <0.47%), Play Billing 7.x subscriptions, ASO keyword indexing, and Play Integrity.'
     },
@@ -84,7 +141,7 @@
       phase: 9,
       title: 'Production Capstone Application Launch',
       days: 'Days 81 &ndash; 90',
-      dates: 'Jan 17 &ndash; Jan 26, 2027',
+      dates: 'Jan 27 &ndash; Feb 05, 2027',
       badge: 'PHASE 09: CAPSTONE PRODUCTION',
       desc: 'Architecting and executing an end-to-end commercial Android app with monetization, automated testing (80%+ coverage), and CI/CD.'
     },
@@ -92,7 +149,7 @@
       phase: 10,
       title: 'Ecosystem Scale, Tech Leadership & Revenue',
       days: 'Days 91 &ndash; 100',
-      dates: 'Jan 27 &ndash; Feb 05, 2027',
+      dates: 'Feb 06 &ndash; Feb 15, 2027',
       badge: 'PHASE 10: SCALE & VALUATION',
       desc: 'Scaling to 1M+ active users, engineering team governance, and scaling revenue systems toward the ₹2L/mo base and ₹2 Cr+ valuation tier.'
     }
@@ -363,52 +420,74 @@
     return dateObj.toLocaleDateString('en-US', options);
   }
 
-  // Generate 100 Days Data Array
+  // Helper: ISO Date YYYY-MM-DD local format
+  function getISODateString(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  // Generate 100 Days Data Array (excluding scheduled vacation dates)
   function generateInitialDays() {
     const days = [];
-    const startDate = new Date(START_DATE_STR + 'T00:00:00');
+    // Start on Day 1: October 29, 2026 (Month is 9 in 0-indexed JS)
+    let current = new Date(2026, 9, 29);
 
-    for (let i = 0; i < TOTAL_DAYS; i++) {
-      const current = new Date(startDate);
-      current.setDate(startDate.getDate() + i);
+    // Verified Completed Sprint Logs (Days 1–9 through Nov 12, 2026):
+    // Day 1 (Oct 29, 2026): 14.0 hrs
+    // Day 2 (Oct 30, 2026): 12.5 hrs
+    // Day 3 (Oct 31, 2026): 12.0 hrs
+    // Day 4 (Nov 01, 2026): 12.5 hrs
+    // Day 5 (Nov 02, 2026): 13.0 hrs
+    // Day 6 (Nov 03, 2026): 10.0 hrs
+    // Day 7 (Nov 04, 2026): 10.0 hrs
+    // Day 8 (Nov 05, 2026): 10.0 hrs
+    // [Nov 6–11, 2026: Official Diwali Vacation (6 days recess) - excluded]
+    // Day 9 (Nov 12, 2026): 10.0 hrs
+    const loggedHoursMap = {
+      1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
+      2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
+      3: { hours: 12.0, notes: 'Day 3 completed — 12 hrs logged.' },
+      4: { hours: 12.5, notes: 'Day 4 completed — 12.5 hrs logged.' },
+      5: { hours: 13.0, notes: 'Day 5 completed — 13 hrs logged.' },
+      6: { hours: 10.0, notes: 'Day 6 completed — 10 hrs logged.' },
+      7: { hours: 10.0, notes: 'Day 7 completed — 10 hrs logged.' },
+      8: { hours: 10.0, notes: 'Day 8 completed — 10 hrs logged.' },
+      9: { hours: 10.0, notes: 'Day 9 completed — 10 hrs logged (post-Diwali resume).' }
+    };
 
-      const dayNumber = i + 1;
-      const phaseNumber = Math.min(10, Math.floor(i / 10) + 1);
-      const topicObj = CURRICULUM_TOPICS[i] || {
-        t: `Android Engineering Sprint & Technical Implementation Day ${dayNumber}`,
-        d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
-      };
+    while (days.length < TOTAL_DAYS) {
+      const dateStr = getISODateString(current);
 
-      // Verified Completed Sprint Logs:
-      // Day 1 (Oct 29, 2026): 14.0 hrs
-      // Day 2 (Oct 30, 2026): 12.5 hrs
-      // Day 3 (Oct 31, 2026): 12.0 hrs
-      // Day 4 (Nov 01, 2026): 12.5 hrs
-      // Day 5 (Nov 02, 2026): 13.0 hrs
-      const loggedHoursMap = {
-        1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
-        2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
-        3: { hours: 12.0, notes: 'Day 3 completed — 12 hrs logged.' },
-        4: { hours: 12.5, notes: 'Day 4 completed — 12.5 hrs logged.' },
-        5: { hours: 13.0, notes: 'Day 5 completed — 13 hrs logged.' }
-      };
+      // Skip scheduled vacation dates
+      if (!VACATION_DATES.has(dateStr)) {
+        const dayNumber = days.length + 1;
+        const phaseNumber = Math.min(10, Math.floor((dayNumber - 1) / 10) + 1);
+        const topicObj = CURRICULUM_TOPICS[dayNumber - 1] || {
+          t: `Android Engineering Sprint & Technical Implementation Day ${dayNumber}`,
+          d: '10-hour focused execution block on Kotlin, Compose, and Google Developer Ecosystem tools.'
+        };
 
-      const logRecord = loggedHoursMap[dayNumber];
-      const dayHours = logRecord ? logRecord.hours : 0.0;
-      const isCompleted = dayHours >= DAILY_TARGET_HOURS;
-      const dayNotes = logRecord ? logRecord.notes : '';
+        const logRecord = loggedHoursMap[dayNumber];
+        const dayHours = logRecord ? logRecord.hours : 0.0;
+        const isCompleted = dayHours >= DAILY_TARGET_HOURS;
+        const dayNotes = logRecord ? logRecord.notes : '';
 
-      days.push({
-        day: dayNumber,
-        date: current.toISOString().split('T')[0],
-        dateFormatted: formatDate(current),
-        phase: phaseNumber,
-        title: topicObj.t,
-        deliverables: topicObj.d,
-        hours: dayHours,
-        completed: isCompleted,
-        notes: dayNotes
-      });
+        days.push({
+          day: dayNumber,
+          date: dateStr,
+          dateFormatted: formatDate(current),
+          phase: phaseNumber,
+          title: topicObj.t,
+          deliverables: topicObj.d,
+          hours: dayHours,
+          completed: isCompleted,
+          notes: dayNotes
+        });
+      }
+
+      current.setDate(current.getDate() + 1);
     }
 
     return days;
@@ -434,32 +513,13 @@
   function loadState() {
     try {
       let saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) {
-        saved = localStorage.getItem('gap_fellowship_v6') || localStorage.getItem('gap_fellowship_v5') || localStorage.getItem('gap_fellowship_v4') || localStorage.getItem('gap_fellowship_v3') || localStorage.getItem('gap_fellowship_v2');
-      }
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.days && parsed.days.length === TOTAL_DAYS) {
           appState.days = parsed.days;
-          // Ensure Days 1-5 reflect completed logs
-          const defaultLogs = [
-            { dayIdx: 0, hours: 14.0, note: 'Day 1 completed — 14 hrs logged.' },
-            { dayIdx: 1, hours: 12.5, note: 'Day 2 completed — 12.5 hrs logged.' },
-            { dayIdx: 2, hours: 12.0, note: 'Day 3 completed — 12 hrs logged.' },
-            { dayIdx: 3, hours: 12.5, note: 'Day 4 completed — 12.5 hrs logged.' },
-            { dayIdx: 4, hours: 13.0, note: 'Day 5 completed — 13 hrs logged.' }
-          ];
-          defaultLogs.forEach(entry => {
-            if (appState.days[entry.dayIdx]) {
-              appState.days[entry.dayIdx].hours = entry.hours;
-              appState.days[entry.dayIdx].completed = true;
-              appState.days[entry.dayIdx].notes = entry.note;
-            }
-          });
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
           appState.candidateId = 'GOOG-ENG-84092';
-          saveState();
           return;
         }
       }
@@ -467,7 +527,7 @@
       console.warn('Could not read existing state from localStorage:', e);
     }
 
-    // Default Initial Setup
+    // Default Initial Setup with updated vacation calendar and Days 1-9 logged
     appState.days = generateInitialDays();
     appState.projects = INITIAL_PROJECTS;
     appState.candidateName = 'Sidhant Saini';
@@ -734,7 +794,7 @@
 
     container.innerHTML = '';
 
-    const todayStr = new Date().toISOString().split('T')[0];
+    const todayStr = getISODateString(new Date());
     const q = appState.searchQuery.toLowerCase().trim();
 
     const filteredDays = appState.days.filter((d) => {
@@ -775,7 +835,7 @@
         feedbackSummary.innerHTML = msg;
         if (clearBtn) clearBtn.style.display = 'inline-flex';
       } else {
-        feedbackSummary.innerHTML = `Showing All 100 Days &bull; 1,000 Hours Quota (Oct 29, 2026 &ndash; Feb 05, 2027)`;
+        feedbackSummary.innerHTML = `Showing All 100 Days &bull; 1,000 Hours Quota (Oct 29, 2026 &ndash; Feb 15, 2027 &bull; 10 Vacations Excluded)`;
         if (clearBtn) clearBtn.style.display = 'none';
       }
     }
@@ -1560,6 +1620,20 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
     if (btnStartTimerToday) {
       btnStartTimerToday.addEventListener('click', () => {
         switchToSection('protocol-section');
+      });
+    }
+
+    const btnJumpToTracker = document.getElementById('btn-jump-to-tracker');
+    if (btnJumpToTracker) {
+      btnJumpToTracker.addEventListener('click', () => {
+        switchToSection('tracker-section');
+      });
+    }
+
+    const btnViewVacations = document.getElementById('btn-view-vacation-schedule');
+    if (btnViewVacations) {
+      btnViewVacations.addEventListener('click', () => {
+        switchToSection('vacations-section');
       });
     }
 
