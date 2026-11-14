@@ -8,13 +8,13 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v9';
+  const STORAGE_KEY = 'gap_fellowship_v10';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
   const START_DATE_STR = '2026-10-29'; // Day 1: Oct 29, 2026
 
-  // Scheduled Recess & Vacation Calendar (10 Calendar Days Excluded from Sprint Quota)
+  // Scheduled Recess & Vacation Calendar (10 Calendar Days + 16 Sundays Excluded from Sprint Quota)
   const VACATION_DATES = new Set([
     '2026-11-06', '2026-11-07', '2026-11-08', '2026-11-09', '2026-11-10', '2026-11-11', // Diwali Break (6 days)
     '2026-12-25', // Christmas (1 day)
@@ -24,6 +24,15 @@
   ]);
 
   const VACATION_SCHEDULE = [
+    {
+      occasion: 'Weekly Sunday Recesses (Nov 14 onwards)',
+      datesText: 'Every Sunday (Nov 15, 2026 – Feb 28, 2027)',
+      startDate: '2026-11-15',
+      endDate: '2027-02-28',
+      daysCount: 16,
+      category: 'Weekly Holiday',
+      desc: 'All 16 Sundays from Nov 14 onwards designated as non-working fellowship recess days (6-day workweek schedule). Excluded from 100-day engineering sprint quota.'
+    },
     {
       occasion: 'Diwali vacation (company break)',
       datesText: '6–11 November 2026',
@@ -71,7 +80,7 @@
     }
   ];
 
-  // Phase Definitions (Dates dynamically reflect the 10-day vacation calendar extension)
+  // Phase Definitions (Dates dynamically reflect 10-day vacation + 16 Sunday recess extensions concluding Mar 03, 2027)
   const PHASES_METADATA = [
     {
       phase: 1,
@@ -85,7 +94,7 @@
       phase: 2,
       title: 'Jetpack Compose & Material Design 3',
       days: 'Days 11 &ndash; 20',
-      dates: 'Nov 14 &ndash; Nov 23, 2026',
+      dates: 'Nov 14 &ndash; Nov 25, 2026',
       badge: 'PHASE 02: UI SYSTEMS',
       desc: 'Declarative UI architecture, subcomposition, custom hardware-accelerated Canvas, gesture engines, and 120Hz frame stability.'
     },
@@ -93,7 +102,7 @@
       phase: 3,
       title: 'Clean Multi-Module Architecture & Room',
       days: 'Days 21 &ndash; 30',
-      dates: 'Nov 24 &ndash; Dec 03, 2026',
+      dates: 'Nov 26 &ndash; Dec 07, 2026',
       badge: 'PHASE 03: PERSISTENCE & DATA',
       desc: 'Modular enterprise architecture (Domain/Data/Feature), Hilt DI at scale, Room 2.6+ auto-migrations, and resilient offline-first sync.'
     },
@@ -101,7 +110,7 @@
       phase: 4,
       title: 'Google AdMob & In-App Monetization Suite',
       days: 'Days 31 &ndash; 40',
-      dates: 'Dec 04 &ndash; Dec 13, 2026',
+      dates: 'Dec 08 &ndash; Dec 18, 2026',
       badge: 'PHASE 04: COMMERCIAL MONETIZATION',
       desc: 'Google Mobile Ads (GMA) SDK v23+, Adaptive Banners, Rewarded SSV, Real-Time Bidding (RTB), and UMP consent compliance.'
     },
@@ -109,7 +118,7 @@
       phase: 5,
       title: 'Google Ads (UAC) Growth & Acquisition',
       days: 'Days 41 &ndash; 50',
-      dates: 'Dec 14 &ndash; Dec 23, 2026',
+      dates: 'Dec 19 &ndash; Dec 31, 2026',
       badge: 'PHASE 05: USER ACQUISITION & GROWTH',
       desc: 'Universal App Campaigns (tCPI & tCPA), tROAS value-based bidding, Play Install Referrer, Android App Links, and LTV/CAC optimization.'
     },
@@ -117,7 +126,7 @@
       phase: 6,
       title: 'Android Runtime, Performance & Profiling',
       days: 'Days 51 &ndash; 60',
-      dates: 'Dec 24, 2026 &ndash; Jan 04, 2027',
+      dates: 'Jan 02 &ndash; Jan 13, 2027',
       badge: 'PHASE 06: PERFORMANCE & NDK',
       desc: 'Systrace, Perfetto, Baseline Profiles, cold startup reduction (<500ms), LeakCanary memory leak elimination, and Android NDK/JNI.'
     },
@@ -125,7 +134,7 @@
       phase: 7,
       title: 'Firebase, Cloud Microservices & Analytics',
       days: 'Days 61 &ndash; 70',
-      dates: 'Jan 05 &ndash; Jan 15, 2027',
+      dates: 'Jan 15 &ndash; Jan 27, 2027',
       badge: 'PHASE 07: CLOUD & TELEMETRY',
       desc: 'FCM push infrastructure, Remote Config server-side A/B tests, Crashlytics velocity triggers, BigQuery raw event analytics.'
     },
@@ -133,7 +142,7 @@
       phase: 8,
       title: 'Google Play Console, Android Vitals & ASO',
       days: 'Days 71 &ndash; 80',
-      dates: 'Jan 16 &ndash; Jan 25, 2027',
+      dates: 'Jan 28 &ndash; Feb 08, 2027',
       badge: 'PHASE 08: PLAY STORE ECOSYSTEM',
       desc: 'Android Vitals excellence (crash rate <0.1%, ANR <0.47%), Play Billing 7.x subscriptions, ASO keyword indexing, and Play Integrity.'
     },
@@ -141,7 +150,7 @@
       phase: 9,
       title: 'Production Capstone Application Launch',
       days: 'Days 81 &ndash; 90',
-      dates: 'Jan 27 &ndash; Feb 05, 2027',
+      dates: 'Feb 09 &ndash; Feb 19, 2027',
       badge: 'PHASE 09: CAPSTONE PRODUCTION',
       desc: 'Architecting and executing an end-to-end commercial Android app with monetization, automated testing (80%+ coverage), and CI/CD.'
     },
@@ -149,7 +158,7 @@
       phase: 10,
       title: 'Ecosystem Scale, Tech Leadership & Revenue',
       days: 'Days 91 &ndash; 100',
-      dates: 'Feb 06 &ndash; Feb 15, 2027',
+      dates: 'Feb 20 &ndash; Mar 03, 2027',
       badge: 'PHASE 10: SCALE & VALUATION',
       desc: 'Scaling to 1M+ active users, engineering team governance, and scaling revenue systems toward the ₹2L/mo base and ₹2 Cr+ valuation tier.'
     }
@@ -428,23 +437,25 @@
     return `${y}-${m}-${day}`;
   }
 
-  // Generate 100 Days Data Array (excluding scheduled vacation dates)
+  // Generate 100 Days Data Array (excluding scheduled vacation dates and Sundays on or after Nov 14)
   function generateInitialDays() {
     const days = [];
     // Start on Day 1: October 29, 2026 (Month is 9 in 0-indexed JS)
     let current = new Date(2026, 9, 29);
+    // Starting Nov 14, 2026, Sundays are counted as weekly holiday/recess (not counted as fellowship sprint days)
+    const sundayCutoff = new Date(2026, 10, 14);
 
     // Verified Completed Sprint Logs:
     // Day 1 (Oct 29, 2026): 14.0 hrs
     // Day 2 (Oct 30, 2026): 12.5 hrs
     // Day 3 (Oct 31, 2026): 12.0 hrs
-    // Day 4 (Nov 01, 2026): 12.5 hrs
+    // Day 4 (Nov 01, 2026): 12.5 hrs (past Sunday - preserved)
     // Day 5 (Nov 02, 2026): 13.0 hrs
     // Day 6 (Nov 03, 2026): 12.5 hrs
     // Day 7 (Nov 04, 2026): 12.0 hrs
     // Day 8 (Nov 05, 2026): 13.5 hrs
     // [Nov 6–11, 2026: Official Diwali Vacation (6 days recess) - excluded]
-    // Day 9 (Nov 12, 2026): 10.0 hrs (unchanged)
+    // Day 9 (Nov 12, 2026): 10.0 hrs
     // Day 10 (Nov 13, 2026): 6.0 hrs (Nov 13 sprint log)
     const loggedHoursMap = {
       1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
@@ -461,9 +472,11 @@
 
     while (days.length < TOTAL_DAYS) {
       const dateStr = getISODateString(current);
+      const isSundayOnOrAfterNov14 = (current >= sundayCutoff && current.getDay() === 0);
+      const isVacation = VACATION_DATES.has(dateStr);
 
-      // Skip scheduled vacation dates
-      if (!VACATION_DATES.has(dateStr)) {
+      // Skip scheduled vacation dates and Sunday recesses on or after Nov 14
+      if (!isVacation && !isSundayOnOrAfterNov14) {
         const dayNumber = days.length + 1;
         const phaseNumber = Math.min(10, Math.floor((dayNumber - 1) / 10) + 1);
         const topicObj = CURRICULUM_TOPICS[dayNumber - 1] || {
@@ -517,21 +530,32 @@
       let saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.days && parsed.days.length === TOTAL_DAYS) {
+        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03') {
           appState.days = parsed.days;
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
           appState.candidateId = 'GOOG-ENG-84092';
           return;
         }
+      } else {
+        // Migration support from earlier v9: preserve custom projects if present
+        const prevSaved = localStorage.getItem('gap_fellowship_v9');
+        if (prevSaved) {
+          const prev = JSON.parse(prevSaved);
+          if (prev.projects && prev.projects.length) {
+            appState.projects = prev.projects;
+          }
+        }
       }
     } catch (e) {
       console.warn('Could not read existing state from localStorage:', e);
     }
 
-    // Default Initial Setup with updated vacation calendar and Days 1-9 logged
+    // Default Initial Setup with Sunday exclusion and Days 1-10 logged
     appState.days = generateInitialDays();
-    appState.projects = INITIAL_PROJECTS;
+    if (!appState.projects || !appState.projects.length) {
+      appState.projects = INITIAL_PROJECTS;
+    }
     appState.candidateName = 'Sidhant Saini';
     appState.candidateId = 'GOOG-ENG-84092';
     saveState();
@@ -837,7 +861,7 @@
         feedbackSummary.innerHTML = msg;
         if (clearBtn) clearBtn.style.display = 'inline-flex';
       } else {
-        feedbackSummary.innerHTML = `Showing All 100 Days &bull; 1,000 Hours Quota (Oct 29, 2026 &ndash; Feb 15, 2027 &bull; 10 Vacations Excluded)`;
+        feedbackSummary.innerHTML = `Showing All 100 Days &bull; 1,000 Hours Quota (Oct 29, 2026 &ndash; Mar 03, 2027 &bull; Sundays &amp; Holidays Excluded)`;
         if (clearBtn) clearBtn.style.display = 'none';
       }
     }
