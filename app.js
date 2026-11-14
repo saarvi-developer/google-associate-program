@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v8';
+  const STORAGE_KEY = 'gap_fellowship_v9';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -434,27 +434,29 @@
     // Start on Day 1: October 29, 2026 (Month is 9 in 0-indexed JS)
     let current = new Date(2026, 9, 29);
 
-    // Verified Completed Sprint Logs (Days 1–9 through Nov 12, 2026):
+    // Verified Completed Sprint Logs:
     // Day 1 (Oct 29, 2026): 14.0 hrs
     // Day 2 (Oct 30, 2026): 12.5 hrs
     // Day 3 (Oct 31, 2026): 12.0 hrs
     // Day 4 (Nov 01, 2026): 12.5 hrs
     // Day 5 (Nov 02, 2026): 13.0 hrs
-    // Day 6 (Nov 03, 2026): 10.0 hrs
-    // Day 7 (Nov 04, 2026): 10.0 hrs
-    // Day 8 (Nov 05, 2026): 10.0 hrs
+    // Day 6 (Nov 03, 2026): 12.5 hrs
+    // Day 7 (Nov 04, 2026): 12.0 hrs
+    // Day 8 (Nov 05, 2026): 13.5 hrs
     // [Nov 6–11, 2026: Official Diwali Vacation (6 days recess) - excluded]
-    // Day 9 (Nov 12, 2026): 10.0 hrs
+    // Day 9 (Nov 12, 2026): 10.0 hrs (unchanged)
+    // Day 10 (Nov 13, 2026): 6.0 hrs (Nov 13 sprint log)
     const loggedHoursMap = {
       1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
       2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
       3: { hours: 12.0, notes: 'Day 3 completed — 12 hrs logged.' },
       4: { hours: 12.5, notes: 'Day 4 completed — 12.5 hrs logged.' },
       5: { hours: 13.0, notes: 'Day 5 completed — 13 hrs logged.' },
-      6: { hours: 10.0, notes: 'Day 6 completed — 10 hrs logged.' },
-      7: { hours: 10.0, notes: 'Day 7 completed — 10 hrs logged.' },
-      8: { hours: 10.0, notes: 'Day 8 completed — 10 hrs logged.' },
-      9: { hours: 10.0, notes: 'Day 9 completed — 10 hrs logged (post-Diwali resume).' }
+      6: { hours: 12.5, notes: 'Day 6 completed — 12.5 hrs logged.' },
+      7: { hours: 12.0, notes: 'Day 7 completed — 12 hrs logged.' },
+      8: { hours: 13.5, notes: 'Day 8 completed — 13.5 hrs logged.' },
+      9: { hours: 10.0, notes: 'Day 9 completed — 10 hrs logged (post-Diwali resume).' },
+      10: { hours: 6.0, notes: 'Day 10 (Nov 13) completed — 6 hrs logged.' }
     };
 
     while (days.length < TOTAL_DAYS) {
