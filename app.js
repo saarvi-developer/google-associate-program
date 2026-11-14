@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v10';
+  const STORAGE_KEY = 'gap_fellowship_v11';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -457,6 +457,7 @@
     // [Nov 6–11, 2026: Official Diwali Vacation (6 days recess) - excluded]
     // Day 9 (Nov 12, 2026): 10.0 hrs
     // Day 10 (Nov 13, 2026): 6.0 hrs (Nov 13 sprint log)
+    // Day 11 (Nov 14, 2026): 15.5 hrs (Nov 14 sprint log)
     const loggedHoursMap = {
       1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
       2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
@@ -467,7 +468,8 @@
       7: { hours: 12.0, notes: 'Day 7 completed — 12 hrs logged.' },
       8: { hours: 13.5, notes: 'Day 8 completed — 13.5 hrs logged.' },
       9: { hours: 10.0, notes: 'Day 9 completed — 10 hrs logged (post-Diwali resume).' },
-      10: { hours: 6.0, notes: 'Day 10 (Nov 13) completed — 6 hrs logged.' }
+      10: { hours: 6.0, notes: 'Day 10 (Nov 13) completed — 6 hrs logged.' },
+      11: { hours: 15.5, notes: 'Day 11 (Nov 14) completed — 15.5 hrs logged.' }
     };
 
     while (days.length < TOTAL_DAYS) {
@@ -538,8 +540,8 @@
           return;
         }
       } else {
-        // Migration support from earlier v9: preserve custom projects if present
-        const prevSaved = localStorage.getItem('gap_fellowship_v9');
+        // Migration support from earlier v10/v9: preserve custom projects if present
+        const prevSaved = localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
         if (prevSaved) {
           const prev = JSON.parse(prevSaved);
           if (prev.projects && prev.projects.length) {
@@ -551,7 +553,7 @@
       console.warn('Could not read existing state from localStorage:', e);
     }
 
-    // Default Initial Setup with Sunday exclusion and Days 1-10 logged
+    // Default Initial Setup with Sunday exclusion and Days 1-11 logged
     appState.days = generateInitialDays();
     if (!appState.projects || !appState.projects.length) {
       appState.projects = INITIAL_PROJECTS;
