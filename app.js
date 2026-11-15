@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v11';
+  const STORAGE_KEY = 'gap_fellowship_v12';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -477,7 +477,14 @@
       7: { hours: 12.0, notes: 'Day 7 completed — 12 hrs logged.' },
       8: { hours: 13.5, notes: 'Day 8 completed — 13.5 hrs logged.' },
       9: { hours: 10.0, notes: 'Day 9 completed — 10 hrs logged (post-Diwali resume).' },
-      10: { hours: 6.0, notes: 'Day 10 (Nov 13) completed — 6 hrs logged.' },
+      10: {
+        hours: 6.0,
+        effectiveHours: 10.0,
+        compensated: true,
+        compensatedHours: 4.0,
+        completed: true,
+        notes: 'Day 10 (Nov 13): 10.0h Standard Fulfilled (6.0 hrs logged active + 4.0 hrs auto-compensated by Google Leadership from Day 11 overtime surplus).'
+      },
       11: { hours: 15.5, notes: 'Day 11 (Nov 14) completed — 15.5 hrs logged.' }
     };
 
@@ -497,8 +504,11 @@
 
         const logRecord = loggedHoursMap[dayNumber];
         const dayHours = logRecord ? logRecord.hours : 0.0;
-        const isCompleted = dayHours >= DAILY_TARGET_HOURS;
+        const isCompleted = logRecord && logRecord.completed !== undefined ? logRecord.completed : (dayHours >= DAILY_TARGET_HOURS);
         const dayNotes = logRecord ? logRecord.notes : '';
+        const isCompensated = logRecord && logRecord.compensated ? true : false;
+        const effectiveHours = logRecord && logRecord.effectiveHours ? logRecord.effectiveHours : dayHours;
+        const compensatedHours = logRecord && logRecord.compensatedHours ? logRecord.compensatedHours : 0;
 
         days.push({
           day: dayNumber,
@@ -508,6 +518,9 @@
           title: topicObj.t,
           deliverables: topicObj.d,
           hours: dayHours,
+          effectiveHours: effectiveHours,
+          compensated: isCompensated,
+          compensatedHours: compensatedHours,
           completed: isCompleted,
           notes: dayNotes
         });
@@ -541,7 +554,7 @@
       let saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03') {
+        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03' && parsed.days[9].compensated) {
           appState.days = parsed.days;
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
@@ -549,8 +562,8 @@
           return;
         }
       } else {
-        // Migration support from earlier v10/v9: preserve custom projects if present
-        const prevSaved = localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
+        // Migration support from earlier v11/v10/v9: preserve custom projects if present
+        const prevSaved = localStorage.getItem('gap_fellowship_v11') || localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
         if (prevSaved) {
           const prev = JSON.parse(prevSaved);
           if (prev.projects && prev.projects.length) {
@@ -893,8 +906,9 @@
     // Render cards
     filteredDays.forEach(d => {
       const hours = parseFloat(d.hours) || 0;
+      const isCompleted = (hours >= DAILY_TARGET_HOURS || d.completed);
       let statusClass = 'pending';
-      if (hours >= DAILY_TARGET_HOURS || d.completed) {
+      if (isCompleted) {
         statusClass = 'completed';
       } else if (hours > 0) {
         statusClass = 'partial';
@@ -903,8 +917,29 @@
       const isToday = d.date === todayStr;
 
       const card = document.createElement('div');
-      card.className = `day-card ${statusClass} ${isToday ? 'today-active' : ''}`;
+      card.className = `day-card ${statusClass} ${d.compensated ? 'day-card-compensated' : ''} ${isToday ? 'today-active' : ''}`;
       card.id = `day-card-${d.day}`;
+
+      let hoursBadgeHtml = '';
+      if (d.compensated) {
+        hoursBadgeHtml = `
+          <span class="hours-display-badge text-green badge-compensated" title="10.0h Standard Fulfilled: 6.0h logged + 4.0h auto-compensated by Google">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="opacity: 0.9; margin-right: 4px; vertical-align: -1px;">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            10.0 hrs <span class="comp-badge-pill">6h + 4h Compensated</span>
+          </span>
+        `;
+      } else {
+        hoursBadgeHtml = `
+          <span class="hours-display-badge ${hours >= 10 ? 'text-green' : hours > 0 ? 'text-amber' : 'text-muted'}">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="opacity: 0.85; margin-right: 4px; vertical-align: -1px;">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+            ${hours.toFixed(1)} hrs
+          </span>
+        `;
+      }
 
       card.innerHTML = `
         <div class="day-meta-col">
@@ -913,7 +948,10 @@
             ${isToday ? '<span class="status-dot pulse" title="Today"></span>' : ''}
           </div>
           <div class="day-date-str">${d.dateFormatted}</div>
-          <span class="day-phase-chip">Phase ${d.phase}</span>
+          <div class="day-meta-chips">
+            <span class="day-phase-chip">Phase ${d.phase}</span>
+            ${d.compensated ? '<span class="day-compensated-chip">⭐ Google Compensated</span>' : ''}
+          </div>
         </div>
 
         <div class="day-content-col">
@@ -924,19 +962,14 @@
 
         <div class="day-action-col">
           <div class="hours-logger-widget clean-hours-display">
-            <span class="hours-display-badge ${hours >= 10 ? 'text-green' : hours > 0 ? 'text-amber' : 'text-muted'}">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="opacity: 0.85; margin-right: 4px; vertical-align: -1px;">
-                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-              </svg>
-              ${hours.toFixed(1)} hrs
-            </span>
+            ${hoursBadgeHtml}
           </div>
 
-          <button class="quick-complete-btn ${hours >= 10 ? 'active' : ''}" data-day="${d.day}">
+          <button class="quick-complete-btn ${isCompleted ? 'active' : ''}" data-day="${d.day}">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
             </svg>
-            ${hours >= 10 ? '10h Standard Done' : 'Mark 10h Completed'}
+            ${isCompleted ? (d.compensated ? '10h Standard Done (Compensated)' : '10h Standard Done') : 'Mark 10h Completed'}
           </button>
 
           <div class="day-sub-actions">
