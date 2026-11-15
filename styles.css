@@ -2665,6 +2665,12 @@ body {
   border: 1px solid rgba(168, 85, 247, 0.35);
 }
 
+.cat-flex {
+  background: rgba(245, 158, 11, 0.18);
+  color: #FCD34D;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
 .status-pill {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -2693,6 +2699,23 @@ body {
   background: rgba(168, 85, 247, 0.15);
   color: #D8B4FE;
   border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.status-earned {
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.day-count-badge.badge-gold {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FDE68A;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.flex-credit-recess {
+  background: rgba(245, 158, 11, 0.05) !important;
+  border-left: 3px solid var(--accent-gold);
 }
 
 .recess-notes-card {
@@ -2766,5 +2789,248 @@ body {
   font-size: 0.8125rem;
   color: var(--text-secondary);
   margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   GOOGLE LEADERSHIP OVERDRIVE COMMENDATION & FLEX-CREDIT CARD
+   ========================================================================== */
+
+.tracker-overdrive-card {
+  background: linear-gradient(135deg, rgba(20, 24, 33, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(245, 158, 11, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.tracker-overdrive-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #F59E0B 0%, #4285F4 50%, #34A853 100%);
+}
+
+.toc-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.15rem;
+}
+
+.toc-chip-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(245, 158, 11, 0.15);
+  color: #FCD34D;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+
+.toc-chip-blue {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(66, 133, 244, 0.15);
+  color: #93C5FD;
+  border: 1px solid rgba(66, 133, 244, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+
+.toc-chip-green {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(52, 168, 83, 0.15);
+  color: #86EFAC;
+  border: 1px solid rgba(52, 168, 83, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+
+.toc-content-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 992px) {
+  .toc-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.toc-letter-block {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.25rem 1.25rem 2rem;
+}
+
+.toc-quote-icon {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.65rem;
+  font-size: 2.25rem;
+  font-family: Georgia, serif;
+  color: rgba(245, 158, 11, 0.35);
+  line-height: 1;
+}
+
+.toc-citation-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.toc-citation-text strong {
+  color: #FFFFFF;
+}
+
+.toc-subtext {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.toc-subtext strong {
+  color: #E2E8F0;
+}
+
+.toc-metrics-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+}
+
+.toc-kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.toc-kpi-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+}
+
+.tok-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.tok-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.tok-unit {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tok-sub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 0.2rem;
+}
+
+.toc-award-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0.25rem;
+}
+
+.toc-award-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #86EFAC;
+}
+
+/* Clean Hours Logger Widget (without stepper buttons) */
+.hours-logger-widget.clean-hours-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 0;
+}
+
+.clean-hours-display .hours-display-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.02em;
+}
+
+.clean-hours-display .hours-display-badge.text-green {
+  background: rgba(52, 168, 83, 0.12);
+  border-color: rgba(52, 168, 83, 0.35);
+  color: var(--g-green);
+}
+
+.clean-hours-display .hours-display-badge.text-amber {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: var(--accent-gold);
+}
+
+.clean-hours-display .hours-display-badge.text-muted {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
 }
 

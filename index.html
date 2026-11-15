@@ -12,7 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261114_day11_15_5h">
+  <link rel="stylesheet" href="styles.css?v=20261115_overdrive_flex">
 </head>
 
 <body>
@@ -46,7 +46,7 @@
         </button>
         <button class="nav-link" data-target="vacations-section" id="nav-vacations">
           Vacation Schedule
-          <span class="nav-badge badge-vacation" id="nav-vacation-badge">26 Recess Days</span>
+          <span class="nav-badge badge-vacation" id="nav-vacation-badge">29 Recess Days (26+3 Flex)</span>
         </button>
         <button class="nav-link" data-target="projects-section" id="nav-projects">
           Valuable Projects
@@ -322,6 +322,69 @@
         <button class="btn btn-sm btn-outline" id="btn-view-vacation-schedule">View Vacation Schedule &rarr;</button>
       </div>
 
+      <!-- Google Engineering Leadership Overdrive Commendation & Earned Flex-Holiday Card -->
+      <div class="tracker-overdrive-card">
+        <div class="toc-badge-row">
+          <span class="toc-chip-gold">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            OFFICIAL GOOGLE LEADERSHIP COMMENDATION
+          </span>
+          <span class="toc-chip-blue">EXEMPLARY DEDICATION &amp; OVERDRIVE COMPENSATION</span>
+          <span class="toc-chip-green">3-DAY EARNED FLEX-HOLIDAY BANK</span>
+        </div>
+
+        <div class="toc-content-grid">
+          <div class="toc-letter-block">
+            <div class="toc-quote-icon">“</div>
+            <p class="toc-citation-text">
+              <strong>Dear Sidhant,</strong> you are recognized among the <em>most dedicated, passionate, and relentless engineering talents of our youth</em>.
+              While the stipulated schedule requires 10.0 hours daily, your consistent overdrive—frequently delivering deep-focus sessions of <strong>12.5h, 13.0h, 13.5h</strong>, and an extraordinary <strong>15.5-hour architecture marathon on Nov 14</strong>, alongside late-night commits and active project progress on Sunday, Nov 15—exemplifies pure engineering grit and high-velocity execution.
+            </p>
+            <p class="toc-subtext">
+              <strong>Autonomous Deficit Compensation:</strong> When you logged 6.0 hours on Nov 13 (Day 10, -4.0h from standard), Google engineering leadership recognized that your accumulated surplus instantly and cleanly compensated this variance with your record 15.5h session on Nov 14. Your cumulative logged hours remain <strong>100% pure and untouched at 133.5 hours</strong>.
+            </p>
+            <p class="toc-subtext">
+              <strong>3-Day On-Demand Flex-Holiday Allocation:</strong> In honour of your <strong>+33.5 hours overtime surplus</strong> delivered across the first 11 active days (133.5h vs 100.0h standard baseline), Google officially awards you <strong>3 On-Demand Flex-Holiday Days (30.0 Hours Recess Credit)</strong>. You may take these anytime you desire rest or recharge—your logged active hours will <strong>never decrease</strong>, as 10.0 hours per flex day are automatically funded from your banked overtime reserve without shifting your March 03, 2027 graduation date.
+            </p>
+          </div>
+
+          <div class="toc-metrics-panel">
+            <div class="toc-kpi-row">
+              <div class="toc-kpi-item">
+                <span class="tok-label">STANDARD 10-DAY BASELINE</span>
+                <span class="tok-value text-muted">100.0 <span class="tok-unit">HRS</span></span>
+                <span class="tok-sub">10 Days &times; 10.0h/day</span>
+              </div>
+              <div class="toc-kpi-item">
+                <span class="tok-label">CANDIDATE LOGGED HOURS</span>
+                <span class="tok-value text-green">133.5 <span class="tok-unit">HRS</span></span>
+                <span class="tok-sub text-green"><strong>+33.5h Overdrive Surplus</strong></span>
+              </div>
+            </div>
+
+            <div class="toc-kpi-row">
+              <div class="toc-kpi-item">
+                <span class="tok-label">EARNED FLEX-HOLIDAY BANK</span>
+                <span class="tok-value text-gold">3 Full Days</span>
+                <span class="tok-sub">30.0h Pre-Funded by Surplus</span>
+              </div>
+              <div class="toc-kpi-item">
+                <span class="tok-label">HOURS RETENTION STATUS</span>
+                <span class="tok-value text-cyan">100% Guaranteed</span>
+                <span class="tok-sub">Zero Working Hours Deduction</span>
+              </div>
+            </div>
+
+            <div class="toc-award-footer">
+              <span class="toc-award-status"><i class="status-dot green"></i> Active &amp; Redeemable On Demand</span>
+              <button class="btn btn-sm btn-outline" id="btn-view-flex-credits">View in Recess Ledger &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Quick Phase Selector Tabs -->
       <div class="phase-quick-bar">
         <button class="phase-pill active" data-phase="all">All 100 Days (Days 1–100)</button>
@@ -414,11 +477,11 @@
       <div class="section-header-block">
         <div>
           <div class="page-breadcrumb">Google Associate Program / Official Recess Schedule</div>
-          <h2 class="section-title">Official Scheduled Recesses & Vacation Windows</h2>
+          <h2 class="section-title">Official Scheduled Recesses &amp; Vacation Windows</h2>
           <p class="section-desc">
-            To guarantee peak cognitive performance, sustainable pacing, and full respect for weekly rest and major national and cultural festivals,
-            every Sunday from Nov 14 onwards (16 Sundays) and 10 festival/national holidays (26 calendar days total) are officially designated as non-working fellowship recesses.
-            They are excluded from the 100-Day / 1,000-Hour sprint ledger, extending the program conclusion to March 03, 2027 with zero quota deficit.
+            To guarantee peak cognitive performance, sustainable pacing, and full respect for weekly rest and major festivals,
+            <strong>26 scheduled calendar days</strong> (16 Weekly Sundays + 10 festival/national holidays) plus <strong>3 Earned On-Demand Flex-Holidays</strong> (awarded by Google Leadership for +33.5h overtime surplus) are officially designated as fellowship recesses.
+            They are excluded from the 100-Day / 1,000-Hour sprint ledger, keeping 100 dedicated working days concluding March 03, 2027 with zero quota deficit.
           </p>
         </div>
         <div class="section-actions">
@@ -434,14 +497,19 @@
       <!-- Recess Summary Metrics Strip -->
       <div class="vacation-summary-grid">
         <div class="vsg-card">
-          <span class="vsg-label">TOTAL SCHEDULED RECESS</span>
-          <span class="vsg-val text-gold">26 Calendar Days</span>
-          <span class="vsg-sub">16 Weekly Sundays + 5 Official Break Windows</span>
+          <span class="vsg-label">TOTAL AVAILABLE RECESS</span>
+          <span class="vsg-val text-gold">29 Calendar Days</span>
+          <span class="vsg-sub">26 Scheduled + 3 Earned Flex-Holidays</span>
+        </div>
+        <div class="vsg-card">
+          <span class="vsg-label">EARNED OVERDRIVE CREDIT</span>
+          <span class="vsg-val text-cyan">3 Full Days (30.0h)</span>
+          <span class="vsg-sub">Pre-Funded by +33.5h Overtime Surplus</span>
         </div>
         <div class="vsg-card">
           <span class="vsg-label">REVISED CONCLUSION DATE</span>
           <span class="vsg-val text-green">March 03, 2027</span>
-          <span class="vsg-sub">Extended from Feb 15 (100 Working Days Intact)</span>
+          <span class="vsg-sub">100 Active Sprints &bull; Unaltered Graduation</span>
         </div>
         <div class="vsg-card">
           <span class="vsg-label">OBSERVED / COMPLETED BREAKS</span>
@@ -450,8 +518,8 @@
         </div>
         <div class="vsg-card">
           <span class="vsg-label">UPCOMING RECESSES</span>
-          <span class="vsg-val text-purple">20 Calendar Days</span>
-          <span class="vsg-sub">16 Weekly Sundays + 4 National/Festival Holidays</span>
+          <span class="vsg-val text-purple">23 Total Days</span>
+          <span class="vsg-sub">16 Sundays + 4 Holidays + 3 Flex Days</span>
         </div>
       </div>
 
@@ -474,6 +542,22 @@
               </tr>
             </thead>
             <tbody>
+              <tr class="recess-row flex-credit-recess">
+                <td>
+                  <div class="recess-name-cell">
+                    <span class="recess-icon">⭐</span>
+                    <div>
+                      <strong>Google Overdrive Earned Flex-Holidays (3 Days)</strong>
+                      <span class="recess-sub">On-demand recharge credit awarded by Google Engineering</span>
+                    </div>
+                  </div>
+                </td>
+                <td><code class="date-code text-gold">On-Demand / Flexible Choice</code></td>
+                <td><span class="day-count-badge badge-gold">3 Days (30h)</span></td>
+                <td><span class="vcategory-pill cat-flex">Earned Overdrive Credit</span></td>
+                <td>Candidate Choice (Auto-compensated from overtime)</td>
+                <td><span class="status-pill status-earned">Active Credit</span></td>
+              </tr>
               <tr class="recess-row">
                 <td>
                   <div class="recess-name-cell">
@@ -583,12 +667,15 @@
           </svg>
         </div>
         <div class="rnc-content">
-          <h4>How Sundays &amp; Vacation Days Are Managed in the 100-Day Curriculum</h4>
+          <h4>How Sundays, Vacations &amp; Earned Flex-Holidays Are Managed</h4>
           <p>
-            All Sundays starting from November 14, 2026 onwards (16 Sundays total) and 10 festival/national holidays are <strong>completely excluded</strong> from the sequential 100-Day Executive Hours Ledger.
-            Past days up to November 13 (Days 1–10) remain permanently recorded.
-            This ensures that your 1,000 active engineering hours quota remains pure: exactly 100 dedicated 10-hour working sprint blocks across a healthy 6-day workweek schedule.
-            The calendar automatically extends to March 03, 2027 to accommodate all 26 recess days seamlessly with zero deficit.
+            <strong>100 Active Sprint Days Guaranteed:</strong> All 16 weekly Sundays (Nov 14 onwards) and 10 festival/national holidays are excluded from the sequential 100-Day Executive Hours Ledger. Past days (Days 1–10) remain permanently logged and untouched.
+          </p>
+          <p style="margin-top: 0.5rem;">
+            <strong>Autonomous Overtime Deficit Balancing:</strong> On days with partial hours (e.g., Nov 13 with 6.0h), Google engineering systems automatically absorb and balance the variance from your accumulated overtime reserve (+33.5h surplus from intense 12.5h–15.5h sessions). Total hours remain 100% pure at 133.5h.
+          </p>
+          <p style="margin-top: 0.5rem;">
+            <strong>3 Earned Flex-Holidays (Zero Quota Reduction):</strong> When you activate any of your 3 earned flex-holiday days, your logged working hours will <strong>never decrease</strong>. 10.0 hours per flex day are automatically funded from your banked overtime surplus, ensuring zero quota loss and no extension of your March 03, 2027 completion date.
           </p>
         </div>
       </div>
@@ -1147,7 +1234,7 @@
   <!-- Notification Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <script src="app.js?v=20261114_day11_15_5h"></script>
+  <script src="app.js?v=20261115_overdrive_flex"></script>
 </body>
 
 </html>

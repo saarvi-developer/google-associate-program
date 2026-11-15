@@ -25,6 +25,15 @@
 
   const VACATION_SCHEDULE = [
     {
+      occasion: 'Google Overdrive Earned Flex-Holidays (3 Days)',
+      datesText: 'On-Demand / Flexible Choice',
+      startDate: '2026-11-15',
+      endDate: '2027-03-03',
+      daysCount: 3,
+      category: 'Earned Overdrive Credit',
+      desc: '3 On-Demand Recess Days granted by Google Leadership for +33.5h overtime surplus. Pre-funded by accumulated surplus (10h/day auto-compensated, zero working hours deducted).'
+    },
+    {
       occasion: 'Weekly Sunday Recesses (Nov 14 onwards)',
       datesText: 'Every Sunday (Nov 15, 2026 – Feb 28, 2027)',
       startDate: '2026-11-15',
@@ -914,10 +923,13 @@
         </div>
 
         <div class="day-action-col">
-          <div class="hours-logger-widget">
-            <button class="hours-stepper-btn btn-minus" data-day="${d.day}" title="Decrease 1 Hour">&minus;</button>
-            <span class="hours-display-badge ${hours >= 10 ? 'text-green' : hours > 0 ? 'text-amber' : 'text-muted'}">${hours.toFixed(1)}h</span>
-            <button class="hours-stepper-btn btn-plus" data-day="${d.day}" title="Increase 1 Hour">+</button>
+          <div class="hours-logger-widget clean-hours-display">
+            <span class="hours-display-badge ${hours >= 10 ? 'text-green' : hours > 0 ? 'text-amber' : 'text-muted'}">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="opacity: 0.85; margin-right: 4px; vertical-align: -1px;">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+              ${hours.toFixed(1)} hrs
+            </span>
           </div>
 
           <button class="quick-complete-btn ${hours >= 10 ? 'active' : ''}" data-day="${d.day}">
@@ -929,27 +941,15 @@
 
           <div class="day-sub-actions">
             <button class="btn-icon-text btn-open-notes" data-day="${d.day}">
-              ${d.notes ? 'Edit Log / Notes' : '+ Add Note'}
+              ${d.notes ? 'Edit Log / Hours' : '+ Log Hours'}
             </button>
           </div>
         </div>
       `;
 
       // Event Listeners for Card buttons
-      const btnMinus = card.querySelector('.btn-minus');
-      const btnPlus = card.querySelector('.btn-plus');
       const btnQuick = card.querySelector('.quick-complete-btn');
       const btnNotes = card.querySelector('.btn-open-notes');
-
-      btnMinus.addEventListener('click', (e) => {
-        e.stopPropagation();
-        adjustDayHours(d.day, -1.0);
-      });
-
-      btnPlus.addEventListener('click', (e) => {
-        e.stopPropagation();
-        adjustDayHours(d.day, 1.0);
-      });
 
       btnQuick.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1661,6 +1661,13 @@ ${escapeHtml(proj.spec ? proj.spec.architecture : 'Clean Architecture Multi-Modu
     const btnViewVacations = document.getElementById('btn-view-vacation-schedule');
     if (btnViewVacations) {
       btnViewVacations.addEventListener('click', () => {
+        switchToSection('vacations-section');
+      });
+    }
+
+    const btnViewFlex = document.getElementById('btn-view-flex-credits');
+    if (btnViewFlex) {
+      btnViewFlex.addEventListener('click', () => {
         switchToSection('vacations-section');
       });
     }
