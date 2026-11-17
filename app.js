@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v12';
+  const STORAGE_KEY = 'gap_fellowship_v13';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -465,8 +465,10 @@
     // Day 8 (Nov 05, 2026): 13.5 hrs
     // [Nov 6–11, 2026: Official Diwali Vacation (6 days recess) - excluded]
     // Day 9 (Nov 12, 2026): 10.0 hrs
-    // Day 10 (Nov 13, 2026): 6.0 hrs (Nov 13 sprint log)
+    // Day 10 (Nov 13, 2026): 6.0 hrs (Google Overdrive Auto-Compensated to 10h)
     // Day 11 (Nov 14, 2026): 15.5 hrs (Nov 14 sprint log)
+    // [Nov 15, 2026: Weekly Sunday Recess - excluded]
+    // Day 12 (Nov 16, 2026): 13.5 hrs (Nov 16 sprint log)
     const loggedHoursMap = {
       1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
       2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
@@ -485,7 +487,8 @@
         completed: true,
         notes: 'Day 10 (Nov 13): 10.0h Standard Fulfilled (6.0 hrs logged active + 4.0 hrs auto-compensated by Google Leadership from Day 11 overtime surplus).'
       },
-      11: { hours: 15.5, notes: 'Day 11 (Nov 14) completed — 15.5 hrs logged.' }
+      11: { hours: 15.5, notes: 'Day 11 (Nov 14) completed — 15.5 hrs logged.' },
+      12: { hours: 13.5, notes: 'Day 12 (Nov 16) completed — 13.5 hrs logged.' }
     };
 
     while (days.length < TOTAL_DAYS) {
@@ -554,7 +557,7 @@
       let saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03' && parsed.days[9].compensated) {
+        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03' && parsed.days[9].compensated && parsed.days[11] && parsed.days[11].hours >= 13.5) {
           appState.days = parsed.days;
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
@@ -562,8 +565,8 @@
           return;
         }
       } else {
-        // Migration support from earlier v11/v10/v9: preserve custom projects if present
-        const prevSaved = localStorage.getItem('gap_fellowship_v11') || localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
+        // Migration support from earlier v12/v11/v10/v9: preserve custom projects if present
+        const prevSaved = localStorage.getItem('gap_fellowship_v12') || localStorage.getItem('gap_fellowship_v11') || localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
         if (prevSaved) {
           const prev = JSON.parse(prevSaved);
           if (prev.projects && prev.projects.length) {
@@ -575,7 +578,7 @@
       console.warn('Could not read existing state from localStorage:', e);
     }
 
-    // Default Initial Setup with Sunday exclusion and Days 1-11 logged
+    // Default Initial Setup with Sunday exclusion and Days 1-12 logged
     appState.days = generateInitialDays();
     if (!appState.projects || !appState.projects.length) {
       appState.projects = INITIAL_PROJECTS;
@@ -965,12 +968,19 @@
             ${hoursBadgeHtml}
           </div>
 
-          <button class="quick-complete-btn ${isCompleted ? 'active' : ''}" data-day="${d.day}">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-            ${isCompleted ? (d.compensated ? '10h Standard Done (Compensated)' : '10h Standard Done') : 'Mark 10h Completed'}
-          </button>
+          <div class="quick-complete-pill ${isCompleted ? 'active' : ''}">
+            ${isCompleted ? `
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>${d.compensated ? '10h Standard Done (Compensated)' : '10h Standard Done'}</span>
+            ` : `
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="opacity: 0.6;">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+              </svg>
+              <span>10h Standard Pending</span>
+            `}
+          </div>
 
           <div class="day-sub-actions">
             <button class="btn-icon-text btn-open-notes" data-day="${d.day}">
@@ -981,18 +991,14 @@
       `;
 
       // Event Listeners for Card buttons
-      const btnQuick = card.querySelector('.quick-complete-btn');
       const btnNotes = card.querySelector('.btn-open-notes');
 
-      btnQuick.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleFullDayStandard(d.day);
-      });
-
-      btnNotes.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openEditModal(d.day);
-      });
+      if (btnNotes) {
+        btnNotes.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openEditModal(d.day);
+        });
+      }
 
       container.appendChild(card);
     });
