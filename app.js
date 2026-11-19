@@ -8,7 +8,7 @@
   'use strict';
 
   // Constants
-  const STORAGE_KEY = 'gap_fellowship_v13';
+  const STORAGE_KEY = 'gap_fellowship_v14';
   const TOTAL_TARGET_HOURS = 1000.0;
   const TOTAL_DAYS = 100;
   const DAILY_TARGET_HOURS = 10.0;
@@ -469,6 +469,9 @@
     // Day 11 (Nov 14, 2026): 15.5 hrs (Nov 14 sprint log)
     // [Nov 15, 2026: Weekly Sunday Recess - excluded]
     // Day 12 (Nov 16, 2026): 13.5 hrs (Nov 16 sprint log)
+    // Day 13 (Nov 17, 2026): 14.0 hrs (Approved 7 PM - 5 AM Sprint Window)
+    // Day 14 (Nov 18, 2026): 14.0 hrs (Approved 7 PM - 5 AM Sprint Window)
+    // Day 15 (Nov 19, 2026): 11.0 hrs (Approved 7 PM - 5 AM Sprint Window)
     const loggedHoursMap = {
       1: { hours: 14.0, notes: 'Day 1 completed — 14 hrs logged.' },
       2: { hours: 12.5, notes: 'Day 2 completed — 12.5 hrs logged.' },
@@ -488,7 +491,10 @@
         notes: 'Day 10 (Nov 13): 10.0h Standard Fulfilled (6.0 hrs logged active + 4.0 hrs auto-compensated by Google Leadership from Day 11 overtime surplus).'
       },
       11: { hours: 15.5, notes: 'Day 11 (Nov 14) completed — 15.5 hrs logged.' },
-      12: { hours: 13.5, notes: 'Day 12 (Nov 16) completed — 13.5 hrs logged.' }
+      12: { hours: 13.5, notes: 'Day 12 (Nov 16) completed — 13.5 hrs logged.' },
+      13: { hours: 14.0, notes: 'Day 13 (Nov 17) completed — 14.0 hrs logged (Approved 7 PM - 5 AM Sprint Window).' },
+      14: { hours: 14.0, notes: 'Day 14 (Nov 18) completed — 14.0 hrs logged (Approved 7 PM - 5 AM Sprint Window).' },
+      15: { hours: 11.0, notes: 'Day 15 (Nov 19) completed — 11.0 hrs logged (Approved 7 PM - 5 AM Sprint Window).' }
     };
 
     while (days.length < TOTAL_DAYS) {
@@ -557,7 +563,7 @@
       let saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03' && parsed.days[9].compensated && parsed.days[11] && parsed.days[11].hours >= 13.5) {
+        if (parsed.days && parsed.days.length === TOTAL_DAYS && parsed.days[TOTAL_DAYS - 1].date === '2027-03-03' && parsed.days[9].compensated && parsed.days[14] && parsed.days[14].hours >= 11.0) {
           appState.days = parsed.days;
           appState.projects = parsed.projects && parsed.projects.length ? parsed.projects : INITIAL_PROJECTS;
           appState.candidateName = 'Sidhant Saini'; // Guarantee correct name
@@ -565,8 +571,8 @@
           return;
         }
       } else {
-        // Migration support from earlier v12/v11/v10/v9: preserve custom projects if present
-        const prevSaved = localStorage.getItem('gap_fellowship_v12') || localStorage.getItem('gap_fellowship_v11') || localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
+        // Migration support from earlier v13/v12/v11/v10/v9: preserve custom projects if present
+        const prevSaved = localStorage.getItem('gap_fellowship_v13') || localStorage.getItem('gap_fellowship_v12') || localStorage.getItem('gap_fellowship_v11') || localStorage.getItem('gap_fellowship_v10') || localStorage.getItem('gap_fellowship_v9');
         if (prevSaved) {
           const prev = JSON.parse(prevSaved);
           if (prev.projects && prev.projects.length) {
